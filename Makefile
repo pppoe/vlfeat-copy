@@ -1,12 +1,10 @@
-SRC_DIR:=./vlfeat/vl/
-SRCs:=$(SRC_DIR)/dsift.c $(SRC_DIR)/lbp.c $(SRC_DIR)/generic.c $(SRC_DIR)/host.c $(SRC_DIR)/random.c $(SRC_DIR)/mathop.c $(SRC_DIR)/imopv.c $(SRC_DIR)/imopv_sse2.c $(SRC_DIR)/mathop_sse2.c $(SRC_DIR)/sift.c $(SRC_DIR)/gmm.c $(SRC_DIR)/kmeans.c $(SRC_DIR)/kdtree.c $(SRC_DIR)/fisher.c $(SRC_DIR)/vlad.c $(SRC_DIR)/liop.c
-OBJs:=$(patsubst $(SRC_DIR)/%.c,%.o,$(SRCs))
+PWD:=$(shell pwd)
 
-libvl.so: $(OBJs)
-	gcc -fPIC -shared $(OBJs) -o $@
-$(OBJs): $(SRCs)
-	gcc -fPIC -O3 -DVL_DISABLE_AVX -c $(SRCs) -I$(SRC_DIR)/
-clean: libvl.so
-	rm -f $^
-	rm -f $(OBJs)
-test: 
+CXX:=$(shell which g++)
+CC:=$(shell which gcc)
+
+BIN_DIR:="./build"
+all: 
+	if [ ! -d $(BIN_DIR) ]; then mkdir -pv $(BIN_DIR); fi && if [ ! -f $(BIN_DIR)/Makefile ]; then cd $(BIN_DIR) && cmake $(PWD) && cd $(PWD); fi && cd $(BIN_DIR) && make
+verbose: 
+	if [ ! -d $(BIN_DIR) ]; then mkdir -pv $(BIN_DIR); fi && if [ ! -f $(BIN_DIR)/Makefile ]; then cd $(BIN_DIR) && cmake $(PWD) && cd $(PWD); fi && cd $(BIN_DIR) && make VERBOSE=1
