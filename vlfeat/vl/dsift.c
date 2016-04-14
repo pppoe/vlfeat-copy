@@ -350,8 +350,8 @@ _vl_dsift_update_buffers (VlDsiftFilter * self)
   int y1 = self->boundMinY ;
   int y2 = self->boundMaxY ;
 
-  int rangeX = x2 - x1 - (self->geom.numBinX - 1) * self->geom.binSizeX ;
-  int rangeY = y2 - y1 - (self->geom.numBinY - 1) * self->geom.binSizeY ;
+  int rangeX = x2 - x1 - (self->geom.numBinX) * self->geom.binSizeX ;
+  int rangeY = y2 - y1 - (self->geom.numBinY) * self->geom.binSizeY ;
 
   int numFramesX = (rangeX >= 0) ? rangeX / self->stepX + 1 : 0 ;
   int numFramesY = (rangeY >= 0) ? rangeY / self->stepY + 1 : 0 ;
@@ -541,8 +541,8 @@ _vl_dsift_with_gaussian_window (VlDsiftFilter * self)
 
           float *src = self->convTmp2 ;
 
-          int frameSizeX = self->geom.binSizeX * (self->geom.numBinX - 1) + 1 ;
-          int frameSizeY = self->geom.binSizeY * (self->geom.numBinY - 1) + 1 ;
+          int frameSizeX = self->geom.binSizeX * (self->geom.numBinX) + 1 ;
+          int frameSizeY = self->geom.binSizeY * (self->geom.numBinY) + 1 ;
           int descrSize = vl_dsift_get_descriptor_size (self) ;
 
           for (framey  = self->boundMinY ;
@@ -631,8 +631,8 @@ _vl_dsift_with_flat_window (VlDsiftFilter* self)
 
         float *src = self->convTmp2 ;
 
-        int frameSizeX = self->geom.binSizeX * (self->geom.numBinX - 1) + 1 ;
-        int frameSizeY = self->geom.binSizeY * (self->geom.numBinY - 1) + 1 ;
+        int frameSizeX = self->geom.binSizeX * (self->geom.numBinX) + 1 ;
+        int frameSizeY = self->geom.binSizeY * (self->geom.numBinY) + 1 ;
         int descrSize = vl_dsift_get_descriptor_size (self) ;
 
         wx *= self->geom.binSizeX ;
@@ -728,12 +728,12 @@ void vl_dsift_process (VlDsiftFilter* self, float const* im)
     float * descrIter = self->descrs ;
     int framex, framey, bint ;
 
-    int frameSizeX = self->geom.binSizeX * (self->geom.numBinX - 1) + 1 ;
-    int frameSizeY = self->geom.binSizeY * (self->geom.numBinY - 1) + 1 ;
+    int frameSizeX = self->geom.binSizeX * (self->geom.numBinX) + 1 ;
+    int frameSizeY = self->geom.binSizeY * (self->geom.numBinY) + 1 ;
     int descrSize = vl_dsift_get_descriptor_size (self) ;
 
-    float deltaCenterX = 0.5F * self->geom.binSizeX * (self->geom.numBinX - 1) ;
-    float deltaCenterY = 0.5F * self->geom.binSizeY * (self->geom.numBinY - 1) ;
+    float deltaCenterX = 0.5F * self->geom.binSizeX * (self->geom.numBinX) ;
+    float deltaCenterY = 0.5F * self->geom.binSizeY * (self->geom.numBinY) ;
 
     float normConstant = frameSizeX * frameSizeY ;
 
